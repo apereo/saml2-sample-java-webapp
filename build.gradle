@@ -2,7 +2,7 @@ defaultTasks "build", "jettyRunWar"
 
 allprojects {
     repositories {
-        maven { url 'https://build.shibboleth.net/nexus/content/groups/public'}
+        maven { url 'https://build.shibboleth.net/nexus/content/groups/public' }
         jcenter()
         mavenLocal()
     }
@@ -32,17 +32,19 @@ war.archiveName = "sp.war"
 
 description = "Spring Security SAML v2 sample webapp"
 
+
 dependencies {
     compile "org.springframework.security.extensions:spring-security-saml2-core:${project.'spring-security-saml2.version'}",
-        "org.springframework:spring-core:${project.'spring.version'}",
-        "org.springframework:spring-beans:${project.'spring.version'}",
-        "org.springframework:spring-context:${project.'spring.version'}",
-        "org.springframework:spring-aop:${project.'spring.version'}",
-        "org.springframework:spring-web:${project.'spring.version'}",
-        "org.springframework:spring-webmvc:${project.'spring.version'}",
-        "org.springframework.security:spring-security-config:${project.'spring-security.version'}",
-        "org.slf4j:slf4j-log4j12:${project.'slf4j.version'}",
-        "javax.servlet:jstl:1.2"
+            "org.springframework:spring-core:${project.'spring.version'}",
+            "org.springframework:spring-beans:${project.'spring.version'}",
+            "org.springframework:spring-context:${project.'spring.version'}",
+            "org.springframework:spring-aop:${project.'spring.version'}",
+            "org.springframework:spring-web:${project.'spring.version'}",
+            "org.springframework:spring-webmvc:${project.'spring.version'}",
+            "org.springframework.security:spring-security-config:${project.'spring-security.version'}",
+            "org.slf4j:slf4j-log4j12:${project.'slf4j.version'}",
+            "commons-io:commons-io:2.6",
+            "javax.servlet:jstl:1.2"
 
     providedCompile "javax.servlet:jsp-api:2.0"
 
@@ -64,15 +66,17 @@ configurations {
 }
 
 gretty {
-    jvmArgs = ["-Dorg.eclipse.jetty.annotations.maxWait=120","-Xdebug","-Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n"]
+    jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
+               "-Dorg.eclipse.jetty.annotations.maxWait=120",
+               "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n"]
     scanInterval = 5
     contextPath = '/sp'
     httpsEnabled = true
     httpsPort = 9443
-    httpPort = 8081
-    sslKeyStorePath = 'c:\\etc\\cas\\jetty\\thekeystore'
+    httpPort = 8083
+    sslKeyStorePath = '/etc/cas/thekeystore'
     sslKeyStorePassword = 'changeit'
-    sslTrustStorePath = 'c:\\etc\\cas\\jetty\\thekeystore'
+    sslTrustStorePath = '/etc/cas/thekeystore'
     sslKeyStorePassword = 'changeit'
 }
 

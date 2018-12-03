@@ -110,20 +110,20 @@
             <bean class="org.springframework.security.saml.websso.WebSSOProfileOptions">
                 <property name="includeScoping" value="false"/>
 
-            <!--
+                <!--
                 <property name="forceAuthN" value="true" />
+                <property name="assertionConsumerIndex" value="0" />
+                -->
+
                 
                 <property name="authnContexts">
                     <list>
-                        <value>https://www.wisc.edu/q</value>
+                        <value>https://refeds.org/profile/mfa</value>
                     </list>
                 </property>
-
+                
                 <property name="allowCreate" value="true" />
                 <property name="authnContextComparison" value="EXACT" />
-            -->
-
-
             </bean>
         </property>
     </bean>
@@ -150,11 +150,11 @@
     <bean id="metadataDisplayFilter" class="org.springframework.security.saml.metadata.MetadataDisplayFilter"/>
 
     <!-- Configure HTTP Client to accept certificates from the keystore for HTTPS verification -->
-    <!--
+
     <bean class="org.springframework.security.saml.trust.httpclient.TLSProtocolConfigurer">
-        <property name="sslHostnameVerification" value="default"/>
+        <property name="sslHostnameVerification" value="allowAll"/>
     </bean>
-    -->
+
 
     <!-- IDP Metadata configuration - paths to metadata of IDPs in circle of trust is here -->
     <bean id="metadata" class="org.springframework.security.saml.metadata.CachingMetadataManager">
@@ -199,7 +199,7 @@
                             <property name="local" value="true"/>
                             <property name="securityProfile" value="metaiop"/>
                             <property name="sslSecurityProfile" value="pkix"/>
-                            <property name="sslHostnameVerification" value="default"/>
+                            <property name="sslHostnameVerification" value="allowAll"/>
                             <property name="signMetadata" value="false"/>
                             <property name="signingKey" value="apollo"/>
                             <property name="encryptionKey" value="apollo"/>
