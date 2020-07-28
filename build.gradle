@@ -21,14 +21,14 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.akhikhl.gretty:gretty:2.0.0"
+        classpath "org.gretty:gretty:3.0.3"
     }
 }
 
 apply plugin: 'war'
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: "org.akhikhl.gretty"
+apply plugin: "org.gretty"
 
 war.archiveName = "sp.war"
 
@@ -70,7 +70,7 @@ configurations {
 gretty {
     jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
                "-Dorg.eclipse.jetty.annotations.maxWait=120",
-               "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n"]
+               "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n"]
     scanInterval = 5
     servletContainer = 'jetty9.4'
     contextPath = '/sp'

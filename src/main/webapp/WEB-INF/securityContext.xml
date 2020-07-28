@@ -4,8 +4,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- Enable auto-wiring -->
     <context:annotation-config/>
@@ -24,17 +24,18 @@
     <security:http security="none" pattern="/logout.jsp"/>
 
     <!-- Security for the administration UI -->
-    <security:http pattern="/saml/web/**" access-denied-page="/saml/web/metadata/login">
+    <security:http use-expressions="true" pattern="/saml/web/**">
+        <security:access-denied-handler error-page="/saml/web/metadata/login" />
         <security:form-login login-processing-url="/saml/web/login" login-page="/saml/web/metadata/login"
                              default-target-url="/saml/web/metadata"/>
-        <security:intercept-url pattern="/saml/web/metadata/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/saml/web/metadata/login" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')"/>
         <security:intercept-url pattern="/saml/web/**" access="ROLE_ADMIN"/>
         <security:custom-filter before="FIRST" ref="metadataGeneratorFilter"/>
     </security:http>
 
     <!-- Secured pages with SAML as entry point -->
     <security:http entry-point-ref="samlEntryPoint">
-        <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>
+        <security:intercept-url pattern="/**" access="hasRole('IS_AUTHENTICATED_FULLY')"/>
         <security:custom-filter before="FIRST" ref="metadataGeneratorFilter"/>
         <security:custom-filter after="BASIC_AUTH_FILTER" ref="samlFilter"/>
     </security:http>
@@ -113,7 +114,7 @@
                 <!--
                 <property name="forceAuthN" value="true" />
                 <property name="assertionConsumerIndex" value="0" />
-                -->
+                
 
                 
                 <property name="authnContexts">
@@ -121,7 +122,7 @@
                         <value>https://refeds.org/profile/mfa</value>
                     </list>
                 </property>
-                
+                -->
                 <property name="allowCreate" value="true" />
                 <property name="authnContextComparison" value="EXACT" />
             </bean>
