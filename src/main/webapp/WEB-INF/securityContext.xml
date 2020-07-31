@@ -25,17 +25,19 @@
 
     <!-- Security for the administration UI -->
     <security:http use-expressions="true" pattern="/saml/web/**">
+        <security:csrf disabled="true"/>
         <security:access-denied-handler error-page="/saml/web/metadata/login" />
         <security:form-login login-processing-url="/saml/web/login" login-page="/saml/web/metadata/login"
                              default-target-url="/saml/web/metadata"/>
-        <security:intercept-url pattern="/saml/web/metadata/login" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')"/>
+        <security:intercept-url pattern="/saml/web/metadata/login" access="isAnonymous()"/>
         <security:intercept-url pattern="/saml/web/**" access="ROLE_ADMIN"/>
         <security:custom-filter before="FIRST" ref="metadataGeneratorFilter"/>
     </security:http>
 
     <!-- Secured pages with SAML as entry point -->
-    <security:http entry-point-ref="samlEntryPoint">
-        <security:intercept-url pattern="/**" access="hasRole('IS_AUTHENTICATED_FULLY')"/>
+    <security:http use-expressions="true" entry-point-ref="samlEntryPoint">
+        <security:csrf disabled="true"/>
+        <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
         <security:custom-filter before="FIRST" ref="metadataGeneratorFilter"/>
         <security:custom-filter after="BASIC_AUTH_FILTER" ref="samlFilter"/>
     </security:http>
