@@ -49,7 +49,7 @@ The application can be run using an embedded Jetty instance:
 gradlew build jettyRunWar
 ```
 
-- The sample application will be available at: `https://hostname[8081|9443]/sp`
+- The sample application will be available at: `https://hostname[8081|9876]/sp`
 - Remote debugging via the embedded Jetty deployment option is available under port `5005`
 
 ### External
