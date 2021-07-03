@@ -3,6 +3,8 @@
        xmlns:security="http://www.springframework.org/schema/security"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
               http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
@@ -110,19 +112,19 @@
     <!-- Entry point to initialize authentication, default values taken from properties file -->
     <bean id="samlEntryPoint" class="org.springframework.security.saml.SAMLEntryPoint">
         <property name="defaultProfileOptions">
-            <bean class="org.springframework.security.saml.websso.WebSSOProfileOptions">
-                <property name="includeScoping" value="false"/>
+            <bean class="org.springframework.security.saml.web.CustomWebSSOProfileOptions">
+                <property name="includeScoping" value="${includeScoping:false}"/>
 
                 <!-- <property name="assertionConsumerIndex" value="19" /> -->
-                <!--
-                <property name="forceAuthN" value="true" />
-                -->
+                
+                <property name="forceAuthN" value="${forcedAuthn:false}" />
+                <property name="acsUrl" value="${acsUrl:}" />
 
-                <!-- <property name="authnContexts">
+                <property name="authnContexts">
                     <list>
-                        <value>https://refeds.org/profile/mfa</value>
+                        <value>${authnContext:}</value>
                     </list>
-                </property> -->
+                </property>
                 <property name="allowCreate" value="true" />
                 <property name="authnContextComparison" value="EXACT" />
             </bean>
@@ -286,13 +288,15 @@
     </bean>
 
     <!-- SAML 2.0 WebSSO Assertion Consumer -->
-    <bean id="webSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerImpl"/>
+    <bean id="webSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerImpl">
+        <property name="responseSkew" value="30000" />
+    </bean>
 
     <!-- SAML 2.0 Holder-of-Key WebSSO Assertion Consumer -->
     <bean id="hokWebSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl"/>
 
     <!-- SAML 2.0 Web SSO profile -->
-    <bean id="webSSOprofile" class="org.springframework.security.saml.websso.WebSSOProfileImpl"/>
+    <bean id="webSSOprofile" class="org.springframework.security.saml.web.ConfigurableWebSsoProfile"/>
 
     <!-- SAML 2.0 Holder-of-Key Web SSO profile -->
     <bean id="hokWebSSOProfile" class="org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl"/>

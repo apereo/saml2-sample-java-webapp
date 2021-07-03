@@ -68,13 +68,11 @@ configurations {
 }
 
 gretty {
-/*
     jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
                "-Dorg.eclipse.jetty.annotations.maxWait=120",
                "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n"]
-*/
-    jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
-               "-Dorg.eclipse.jetty.annotations.maxWait=120"]
+//    jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
+//               "-Dorg.eclipse.jetty.annotations.maxWait=120"]
     scanInterval = 5
     servletContainer = 'jetty9.4'
     contextPath = '/sp'

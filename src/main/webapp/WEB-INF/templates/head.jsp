@@ -7,4 +7,5 @@
     <link rel="icon" type="image/png" href="<c:url value="/images/favicon.png"/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>" media="screen" />
     <title>Spring SAML Sample application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
