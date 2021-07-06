@@ -120,6 +120,13 @@
                 <property name="forceAuthN" value="${forcedAuthn:false}" />
                 <property name="acsUrl" value="${acsUrl:}" />
 
+                <property name="allowedIDPs">
+                    <list>
+                        <value>${allowedIdP1:}</value>
+                        <value>${allowedIdP2:}</value>
+                        <value>${allowedIdP3:}</value>
+                    </list>
+                </property>
                 <property name="authnContexts">
                     <list>
                         <value>${authnContext:}</value>
