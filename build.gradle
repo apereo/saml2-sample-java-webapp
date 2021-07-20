@@ -5,7 +5,6 @@ allprojects {
         mavenLocal()
         mavenCentral()
         maven { url 'https://build.shibboleth.net/nexus/content/groups/public' }
-        jcenter()
     }
 }
 
@@ -13,7 +12,6 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
         maven {
             url "https://maven.eveoh.nl/content/repositories/releases"
         }
@@ -70,7 +68,8 @@ configurations {
 gretty {
     jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
                "-Dorg.eclipse.jetty.annotations.maxWait=120",
-               "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n"]
+               "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n"
+               ]
 //    jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
 //               "-Dorg.eclipse.jetty.annotations.maxWait=120"]
     scanInterval = 5
@@ -78,7 +77,7 @@ gretty {
     contextPath = '/sp'
     httpsEnabled = true
     httpsPort = 9876
-    httpPort = 8079
+    httpPort = 8076
     sslKeyStorePath = '/etc/cas/thekeystore'
     sslKeyStorePassword = 'changeit'
     sslTrustStorePath = '/etc/cas/thekeystore'

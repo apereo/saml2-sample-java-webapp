@@ -116,10 +116,12 @@
                 <property name="includeScoping" value="${includeScoping:false}"/>
 
                 <!-- <property name="assertionConsumerIndex" value="19" /> -->
-                
+
+                <property name="relayState" value="${relayState:}" />
                 <property name="forceAuthN" value="${forcedAuthn:false}" />
                 <property name="acsUrl" value="${acsUrl:}" />
-
+                <property name="nameID" value="${nameIdFormat:}" />
+                
                 <property name="allowedIDPs">
                     <list>
                         <value>${allowedIdP1:}</value>
