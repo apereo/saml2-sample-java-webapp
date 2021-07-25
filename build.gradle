@@ -12,14 +12,10 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven {
-            url "https://maven.eveoh.nl/content/repositories/releases"
-        }
-        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
-        classpath "org.gretty:gretty:3.0.3"
+        classpath "org.gretty:gretty:3.0.5"
     }
 }
 
@@ -28,13 +24,13 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: "org.gretty"
 
-war.archiveName = "sp.war"
+war.archiveName("sp.war")
 
 description = "Spring Security SAML v2 sample webapp"
 
 
 dependencies {
-    compile "org.springframework.security.extensions:spring-security-saml2-core:${project.'spring-security-saml2.version'}",
+    implementation "org.springframework.security.extensions:spring-security-saml2-core:${project.'spring-security-saml2.version'}",
             "org.springframework:spring-core:${project.'spring.version'}",
             "org.springframework:spring-beans:${project.'spring.version'}",
             "org.springframework:spring-context:${project.'spring.version'}",
@@ -45,10 +41,8 @@ dependencies {
             "org.slf4j:slf4j-log4j12:${project.'slf4j.version'}",
             "commons-io:commons-io:2.6",
             "javax.servlet:jstl:1.2"
-
     providedCompile "javax.servlet:jsp-api:2.0"
-
-    testCompile "junit:junit:4.4"
+    testImplementation "junit:junit:4.4"
 }
 
 configurations {
@@ -65,22 +59,32 @@ configurations {
     }
 }
 
+List<String> programArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
+                            "-Dorg.eclipse.jetty.annotations.maxWait=120"]
 gretty {
-    jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
-               "-Dorg.eclipse.jetty.annotations.maxWait=120",
-               "-Xdebug", "-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n"
-               ]
-//    jvmArgs = ["-Dspring.security.strategy=MODE_GLOBAL",
-//               "-Dorg.eclipse.jetty.annotations.maxWait=120"]
+    System.properties.each {
+        programArgs.add("-D${it.key}=${it.value}")
+    }
+    if (System.getProperty("debug") != null) {
+        programArgs.add("-Xdebug")
+        programArgs.add("-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n")
+    }
+    logger.info("Program arguments: " + programArgs)
+
+    jvmArgs = programArgs
     scanInterval = 5
     servletContainer = 'jetty9.4'
     contextPath = '/sp'
-    httpsEnabled = true
-    httpsPort = 9876
     httpPort = 8076
-    sslKeyStorePath = '/etc/cas/thekeystore'
-    sslKeyStorePassword = 'changeit'
-    sslTrustStorePath = '/etc/cas/thekeystore'
-    sslKeyStorePassword = 'changeit'
+
+    def path = System.getProperty("sp.sslKeystorePath", "/etc/cas/thekeystore")
+    if (path != null && new java.io.File(path).exists()) {
+        httpsEnabled = true
+        httpsPort = 9876
+        sslKeyStorePath = path
+        sslKeyStorePassword = System.getProperty("sp.sslKeystorePassword", "changeit")
+        sslTrustStorePath = System.getProperty("sp.sslKeystorePath", "/etc/cas/thekeystore")
+        sslKeyStorePassword = System.getProperty("sp.sslKeystorePassword", "changeit")
+    }
 }
 
