@@ -66,4 +66,5 @@ Tomcat installation directory.
 
 ## Test
 
-- The application has been tested with Shibboleth IdP 3.3.
+- The application has been tested with Shibboleth IdP 3.x, 4.x.
+- The application has been tested with Apereo CAS 5.x, 6.x.
