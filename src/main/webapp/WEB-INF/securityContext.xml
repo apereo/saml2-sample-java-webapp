@@ -15,6 +15,7 @@
     <!-- Scan for auto-wiring classes in spring saml packages -->
     <context:component-scan base-package="org.springframework.security.saml"/>
 
+    <util:properties id="externalProperties" location="${sp.properties:./sp.properties}" ignore-resource-not-found="true" />
     <util:properties id="properties" location="/WEB-INF/sp.properties" />
 
     <context:property-placeholder properties-ref="properties"
@@ -170,6 +171,12 @@
         <property name="sslHostnameVerification" value="allowAll"/>
     </bean>
 
+    <bean id="metadataClasspath" class="org.opensaml.util.resource.ClasspathResource">
+        <constructor-arg value="/metadata/sp-metadata.xml"/>
+    </bean>
+    <bean id="metadataFile" class="org.opensaml.util.resource.FilesystemResource">
+        <constructor-arg value="${metadataPath:/etc/saml/sp-metadata.xml}"/>
+    </bean>
 
     <!-- IDP Metadata configuration - paths to metadata of IDPs in circle of trust is here -->
     <bean id="metadata" class="org.springframework.security.saml.metadata.CachingMetadataManager">
@@ -195,17 +202,15 @@
                         </bean>
                     </constructor-arg>
                 </bean>
+
+                
                 <bean class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
                     <constructor-arg>
                         <bean class="org.opensaml.saml2.metadata.provider.ResourceBackedMetadataProvider">
                             <constructor-arg>
                                 <bean class="java.util.Timer"/>
                             </constructor-arg>
-                            <constructor-arg>
-                                <bean class="org.opensaml.util.resource.ClasspathResource">
-                                    <constructor-arg value="/metadata/sp-metadata.xml"/>
-                                </bean>
-                            </constructor-arg>
+                            <constructor-arg ref="${metadataType:metadataClasspath}"/>
                             <property name="parserPool" ref="parserPool"/>
                         </bean>
                     </constructor-arg>

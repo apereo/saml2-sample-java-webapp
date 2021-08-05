@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <md:EntityDescriptor 
-    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="mmoayyed.unicon.net" entityID="mmoayyed.unicon.net">
+    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="shibsp" entityID="https://spring.io/security/saml-sp">
     <md:SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-
-
         <md:KeyDescriptor use="signing">
             <ds:KeyInfo 
                 xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
@@ -24,10 +22,10 @@
 
 
         <!--
-        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://mmoayyed.unicon.net:9876/sp/saml/SingleLogout"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://localhost:9876/sp/saml/SingleLogout"/>
         -->
 
-        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://mmoayyed.unicon.net:9876/sp/saml/SingleLogout"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://localhost:9876/sp/saml/SingleLogout"/>
         <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
         <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
         <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
@@ -35,17 +33,17 @@
         <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</md:NameIDFormat>
 
         <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
-        Location="https://mmoayyed.unicon.net:9876/sp/saml/SSO" index="0"/>
+        Location="https://localhost:9876/sp/saml/SSO" index="0"/>
 
 
         <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
-        Location="https://mmoayyed.unicon.net:9876/sp/saml/SSO7" index="7"/>
+        Location="https://localhost:9876/sp/saml/SSO7" index="7"/>
 
         <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
-        Location="https://mmoayyed.unicon.net:9876/sp/saml/SSO19" index="19"/>
+        Location="https://localhost:9876/sp/saml/SSO19" index="19"/>
 
         <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" 
-        Location="https://mmoayyed.unicon.net:9876/sp/saml/SSO" index="1"/>
+        Location="https://localhost:9876/sp/saml/SSO" index="1"/>
 
         <md:AttributeConsumingService index="1"
             xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
