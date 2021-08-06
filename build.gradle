@@ -83,7 +83,7 @@ gretty {
         httpsPort = 9876
         sslKeyStorePath = path
         sslKeyStorePassword = System.getProperty("sp.sslKeystorePassword", "changeit")
-        sslTrustStorePath = System.getProperty("sp.sslKeystorePath", "/etc/cas/thekeystore")
+        sslTrustStorePath = path
         sslKeyStorePassword = System.getProperty("sp.sslKeystorePassword", "changeit")
     }
 }
