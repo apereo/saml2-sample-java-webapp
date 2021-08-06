@@ -28,6 +28,7 @@
     <security:http security="none" pattern="/images/**"/>
     <security:http security="none" pattern="/css/**"/>
     <security:http security="none" pattern="/logout.jsp"/>
+    <security:http security="none" pattern="/saml/status"/>
 
     <!-- Security for the administration UI -->
     <security:http use-expressions="true" pattern="/saml/web/**">
