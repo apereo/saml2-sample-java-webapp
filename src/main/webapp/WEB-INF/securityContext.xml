@@ -175,10 +175,10 @@
     <bean id="metadataClasspath" class="org.opensaml.util.resource.ClasspathResource">
         <constructor-arg value="${metadataLocation:/metadata/sp-metadata.xml}"/>
     </bean>
-    <bean id="metadataFile" class="org.opensaml.util.resource.FilesystemResource">
+    <bean lazy-init="true" id="metadataFile" class="org.opensaml.util.resource.FilesystemResource">
         <constructor-arg value="${metadataLocation:/etc/saml/sp-metadata.xml}"/>
     </bean>
-    <bean id="metadataUrl" class="org.opensaml.util.resource.HttpResource">
+    <bean lazy-init="true" id="metadataUrl" class="org.opensaml.util.resource.HttpResource">
         <constructor-arg value="${metadataLocation:}"/>
     </bean>
     
@@ -193,11 +193,7 @@
                             <constructor-arg>
                                 <bean class="java.util.Timer"/>
                             </constructor-arg>
-                            <constructor-arg>
-                                <bean class="org.opensaml.util.resource.FilesystemResource">
-                                    <constructor-arg value="${idp.metadata}"/>
-                                </bean>
-                            </constructor-arg>
+                            <constructor-arg ref="${idpMetadataType:idpMetadataFile}"/>
                             <property name="parserPool" ref="parserPool"/>
                         </bean>
                     </constructor-arg>
@@ -207,7 +203,8 @@
                     </constructor-arg>
                 </bean>
 
-                
+
+
                 <bean class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
                     <constructor-arg>
                         <bean class="org.opensaml.saml2.metadata.provider.ResourceBackedMetadataProvider">
@@ -231,8 +228,8 @@
                             <property name="requireLogoutRequestSigned" value="true"/>
                             <property name="requireLogoutResponseSigned" value="false"/>
                             <property name="idpDiscoveryEnabled" value="true"/>
-                            <property name="idpDiscoveryURL" value="${host.name}/sp/saml/discovery"/>
-                            <property name="idpDiscoveryResponseURL" value="${host.name}/sp/saml/login?disco=true"/>
+                            <property name="idpDiscoveryURL" value="${host}/sp/saml/discovery"/>
+                            <property name="idpDiscoveryResponseURL" value="${host}/sp/saml/login?disco=true"/>
                             <property name="ecpEnabled" value="true" />
                         </bean>
                     </constructor-arg>
@@ -243,6 +240,13 @@
         <!-- <property name="hostedSPName" value=""/> -->
         <!-- OPTIONAL property: can tell the system which IDP should be used for authenticating user by default. -->
         <!-- <property name="defaultIDP" value="http://localhost:8080/opensso"/> -->
+    </bean>
+
+    <bean lazy-init="true" id="idpMetadataFile" class="org.opensaml.util.resource.FilesystemResource">
+        <constructor-arg value="${idpMetadata:}"/>
+    </bean>
+    <bean lazy-init="true" id="idpMetadataUrl" class="org.opensaml.util.resource.HttpResource">
+        <constructor-arg value="${idpMetadata:}"/>
     </bean>
 
     <!-- SAML Authentication Provider responsible for validating of received SAML messages -->
