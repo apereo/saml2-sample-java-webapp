@@ -113,35 +113,36 @@
         <constructor-arg type="java.lang.String" value="apollo"/>
     </bean>
 
+    <bean id="options" class="org.springframework.security.saml.web.CustomWebSSOProfileOptions">
+        <property name="includeScoping" value="${includeScoping:false}"/>
+
+        <!-- <property name="assertionConsumerIndex" value="19" /> -->
+
+        <property name="relayState" value="${relayState:}" />
+        <property name="signAuthnRequests" value="${signAuthnRequests:false}" />
+        <property name="forceAuthN" value="${forcedAuthn:false}" />
+        <property name="acsUrl" value="${acsUrl:}" />
+        <property name="nameID" value="${nameIdFormat:}" />
+
+        <property name="allowedIDPs">
+            <list>
+                <value>${allowedIdP1:}</value>
+                <value>${allowedIdP2:}</value>
+                <value>${allowedIdP3:}</value>
+            </list>
+        </property>
+        <property name="authnContexts">
+            <list>
+                <value>${authnContext:}</value>
+            </list>
+        </property>
+        <property name="allowCreate" value="true" />
+        <property name="authnContextComparison" value="EXACT" />
+    </bean>
+
     <!-- Entry point to initialize authentication, default values taken from properties file -->
     <bean id="samlEntryPoint" class="org.springframework.security.saml.SAMLEntryPoint">
-        <property name="defaultProfileOptions">
-            <bean class="org.springframework.security.saml.web.CustomWebSSOProfileOptions">
-                <property name="includeScoping" value="${includeScoping:false}"/>
-
-                <!-- <property name="assertionConsumerIndex" value="19" /> -->
-
-                <property name="relayState" value="${relayState:}" />
-                <property name="forceAuthN" value="${forcedAuthn:false}" />
-                <property name="acsUrl" value="${acsUrl:}" />
-                <property name="nameID" value="${nameIdFormat:}" />
-                
-                <property name="allowedIDPs">
-                    <list>
-                        <value>${allowedIdP1:}</value>
-                        <value>${allowedIdP2:}</value>
-                        <value>${allowedIdP3:}</value>
-                    </list>
-                </property>
-                <property name="authnContexts">
-                    <list>
-                        <value>${authnContext:}</value>
-                    </list>
-                </property>
-                <property name="allowCreate" value="true" />
-                <property name="authnContextComparison" value="EXACT" />
-            </bean>
-        </property>
+        <property name="defaultProfileOptions" ref="options" />
     </bean>
 
     <!-- IDP Discovery Service -->
@@ -313,7 +314,8 @@
     <bean id="hokWebSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl"/>
 
     <!-- SAML 2.0 Web SSO profile -->
-    <bean id="webSSOprofile" class="org.springframework.security.saml.web.ConfigurableWebSsoProfile"/>
+    <bean id="webSSOprofile" class="org.springframework.security.saml.web.ConfigurableWebSsoProfile"
+        p:options-ref="options"/>
 
     <!-- SAML 2.0 Holder-of-Key Web SSO profile -->
     <bean id="hokWebSSOProfile" class="org.springframework.security.saml.websso.WebSSOProfileConsumerHoKImpl"/>

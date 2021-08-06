@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <md:EntityDescriptor 
     xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="shibsp" entityID="https://spring.io/security/saml-sp">
-    <md:SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
         <md:KeyDescriptor use="signing">
             <ds:KeyInfo 
                 xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
@@ -36,11 +36,11 @@
         Location="https://localhost:9876/sp/saml/SSO" index="0"/>
 
 
-        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
+        <!-- <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
         Location="https://localhost:9876/sp/saml/SSO7" index="7"/>
 
         <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
-        Location="https://localhost:9876/sp/saml/SSO19" index="19"/>
+        Location="https://localhost:9876/sp/saml/SSO19" index="19"/> -->
 
         <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" 
         Location="https://localhost:9876/sp/saml/SSO" index="1"/>
