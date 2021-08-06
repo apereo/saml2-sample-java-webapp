@@ -173,12 +173,15 @@
     </bean>
 
     <bean id="metadataClasspath" class="org.opensaml.util.resource.ClasspathResource">
-        <constructor-arg value="/metadata/sp-metadata.xml"/>
+        <constructor-arg value="${metadataLocation:/metadata/sp-metadata.xml}"/>
     </bean>
     <bean id="metadataFile" class="org.opensaml.util.resource.FilesystemResource">
-        <constructor-arg value="${metadataPath:/etc/saml/sp-metadata.xml}"/>
+        <constructor-arg value="${metadataLocation:/etc/saml/sp-metadata.xml}"/>
     </bean>
-
+    <bean id="metadataUrl" class="org.opensaml.util.resource.HttpResource">
+        <constructor-arg value="${metadataLocation:}"/>
+    </bean>
+    
     <!-- IDP Metadata configuration - paths to metadata of IDPs in circle of trust is here -->
     <bean id="metadata" class="org.springframework.security.saml.metadata.CachingMetadataManager">
         <constructor-arg>
