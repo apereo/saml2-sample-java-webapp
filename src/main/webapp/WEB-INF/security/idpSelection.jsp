@@ -24,9 +24,15 @@
                             pageContext.setAttribute("idp", idps);
                         %>
                         <p>
-                        <form action="<c:url value="${requestScope.idpDiscoReturnURL}"/>" method="GET">
-                            <c:forEach var="idpItem" items="${idp}">
-                                <input type="radio" name="${requestScope.idpDiscoReturnParam}" id="idp_<c:out value="${idpItem}"/>" value="<c:out value="${idpItem}"/>"/>
+                        <form id="idpForm" action="<c:url value="${requestScope.idpDiscoReturnURL}"/>" method="GET">
+                            <c:forEach var="idpItem" items="${idp}" varStatus="loop">
+                                <input type="radio" name="${requestScope.idpDiscoReturnParam}" 
+                                    id="idp_<c:out value="${loop.index}"/>" value="<c:out value="${idpItem}"/>"
+                                    <% if (idps.size() == 1) { %> 
+                                        checked
+                                    <% } else { %>
+                                    <% } %>
+                                    />
                                 <label for="idp_<c:out value="${idpItem}"/>"><c:out value="${idpItem}"/></label>
                                 <br/>
                             </c:forEach>
