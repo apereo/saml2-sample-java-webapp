@@ -37,11 +37,11 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Principal:</strong></td>
-                                    <td><c:out value="${authentication.principal}"/></td>
+                                    <td><span id="principal"><c:out value="${authentication.principal}"/></span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Name ID:</strong></td>
-                                    <td><c:out value="${credential.nameID.value}"/></td>
+                                    <td><span id="nameid"><c:out value="${credential.nameID.value}"/></span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Name ID format:</strong></td>
@@ -63,8 +63,13 @@
                                 </tr>
                                 <c:forEach var="attribute" items="${credential.attributes}">
                                     <tr>
-                                        <td width="200">
-                                            <strong><c:out value="${attribute.name}"/></strong><c:if test="${not empty attribute.friendlyName}"> (<c:out value="${attribute.friendlyName}"/>)</c:if>
+                                        <span width="200">
+                                            <span id=<c:out value="'${attribute.name}'"/>>
+                                                <strong><c:out value="${attribute.name}"/></strong></span>
+                                            </span>
+                                            <c:if test="${not empty attribute.friendlyName}">
+                                                (<c:out value="${attribute.friendlyName}"/>)
+                                            </c:if>
                                         </td>
                                         <td>
                                             <%
@@ -122,8 +127,8 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Authentication context class:</strong></td>
-                                    <td><c:out
-                                            value="${credential.authenticationAssertion.authnStatements[0].authnContext.authnContextClassRef.authnContextClassRef}"/></td>
+                                    <td><span id="authnContextClass"><c:out
+                                            value="${credential.authenticationAssertion.authnStatements[0].authnContext.authnContextClassRef.authnContextClassRef}"/></span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Session index:</strong></td>
