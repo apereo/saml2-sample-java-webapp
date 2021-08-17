@@ -98,6 +98,11 @@ pre,code,tt {
     line-height: 1.5;
 }
 
+code {
+    color:rgb(0, 102, 153);
+    font-size: 11pt;
+    font-weight: bold;
+}
 
 /* Lists */
 
@@ -328,7 +333,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 /* Wrapper */
 #site-wrapper {
     margin: 0 auto;
-    width: 920px;
+    width: 1100px;
 }
 
 
