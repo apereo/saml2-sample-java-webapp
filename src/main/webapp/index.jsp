@@ -33,7 +33,7 @@
                                 </tr>
                                 <tr>
                                     <td width="200"><strong>Name:</strong></td>
-                                    <td><c:out value="${authentication.name}"/></td>
+                                    <td><span id="authnName"><c:out value="${authentication.name}"/></span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Principal:</strong></td>
@@ -45,11 +45,11 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Name ID format:</strong></td>
-                                    <td><c:out value="${credential.nameID.format}"/></td>
+                                    <td><span id="nameIdFormat"><c:out value="${credential.nameID.format}"/></span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>IDP:</strong></td>
-                                    <td><c:out value="${credential.authenticationAssertion.issuer.value}"/></td>
+                                    <td><span id="issuer"><c:out value="${credential.authenticationAssertion.issuer.value}"/></span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Assertion issue time:</strong></td>
@@ -77,9 +77,11 @@
                                                 String[] attributeValues = credential.getAttributeAsStringArray(a.getName());
                                                 pageContext.setAttribute("attributeValues", attributeValues);
                                             %>
+                                            <span id=<c:out value="'attrValues-${attribute.name}'"/>>
                                             <c:forEach var="attributeValue" items="${attributeValues}">
                                                 <c:out value="${attributeValue}"/>&nbsp;
                                             </c:forEach>
+                                            </span>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -96,8 +98,8 @@
                                 </tr>
                                 <tr>
                                     <td><strong>In response to:</strong></td>
-                                    <td><c:out
-                                            value="${credential.authenticationAssertion.subject.subjectConfirmations[0].subjectConfirmationData.inResponseTo}"/></td>
+                                    <td><span id="inResponseTo"><c:out
+                                            value="${credential.authenticationAssertion.subject.subjectConfirmations[0].subjectConfirmationData.inResponseTo}"/></span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Not on or after:</strong></td>
@@ -106,8 +108,10 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Recipient:</strong></td>
-                                    <td><c:out
-                                            value="${credential.authenticationAssertion.subject.subjectConfirmations[0].subjectConfirmationData.recipient}"/></td>
+                                    <td>
+                                        <span id="recipient">
+                                        <c:out
+                                            value="${credential.authenticationAssertion.subject.subjectConfirmations[0].subjectConfirmationData.recipient}"/></span></td>
                                 </tr>
                             </table>
                             <p>
