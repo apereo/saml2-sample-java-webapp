@@ -39,7 +39,7 @@ dependencies {
             "org.springframework:spring-webmvc:${project.'spring.version'}",
             "org.springframework.security:spring-security-config:${project.'spring-security.version'}",
             "org.slf4j:slf4j-log4j12:${project.'slf4j.version'}",
-            "commons-io:commons-io:2.6",
+            "commons-io:commons-io:2.11.0",
             "javax.servlet:jstl:1.2"
     providedCompile "javax.servlet:jsp-api:2.0"
     testImplementation "junit:junit:4.4"
