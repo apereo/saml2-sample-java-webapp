@@ -27,6 +27,9 @@ public class ConfigurableWebSsoProfile extends WebSSOProfileImpl {
         CustomWebSSOProfileOptions opts = (CustomWebSSOProfileOptions) options;
         AuthnRequest request = super.getAuthnRequest(context, options, assertionConsumer, bindingService);
         request.setAssertionConsumerServiceURL(opts.getAcsUrl());
+        if (opts.isAuthnRequestBindingOptional()) {
+            request.setProtocolBinding(null);
+        }
         return request;
     }
 

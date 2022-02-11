@@ -116,6 +116,7 @@
 
     <bean id="options" class="org.springframework.security.saml.web.CustomWebSSOProfileOptions">
         <property name="includeScoping" value="${includeScoping:false}"/>
+        <property name="authnRequestBindingOptional" value="${authnRequestBindingOptional:false}"/>
 
         <!-- <property name="assertionConsumerIndex" value="19" /> -->
 

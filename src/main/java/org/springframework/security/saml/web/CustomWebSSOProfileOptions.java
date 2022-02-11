@@ -9,6 +9,16 @@ public class CustomWebSSOProfileOptions extends WebSSOProfileOptions {
 
     private String acsUrl;
 
+    private boolean authnRequestBindingOptional;
+
+    public boolean isAuthnRequestBindingOptional() {
+        return authnRequestBindingOptional;
+    }
+
+    public void setAuthnRequestBindingOptional(final boolean authnRequestBindingOptional) {
+        this.authnRequestBindingOptional = authnRequestBindingOptional;
+    }
+
     public boolean isSignAuthnRequests() {
         return signAuthnRequests;
     }
