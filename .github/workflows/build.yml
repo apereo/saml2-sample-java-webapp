@@ -1,0 +1,63 @@
+#
+# Licensed to Apereo under one or more contributor license
+# agreements. See the NOTICE file distributed with this work
+# for additional information regarding copyright ownership.
+# Apereo licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file
+# except in compliance with the License.  You may obtain a
+# copy of the License at the following location:
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+name: Build
+
+env:
+  JAVA_OPTS: "-Xms512m -Xmx6048m -Xss128m -XX:ReservedCodeCacheSize=512m -server -XX:+UseG1GC"
+  GRADLE_OPTS: "-Xms512m -Xmx6048m -Xss128m -XX:ReservedCodeCacheSize=512m -server -XX:+UseG1GC"
+  TERM: xterm-256color
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  JDK_CURRENT: 11
+
+##########################################################################
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+##########################################################################
+
+jobs:
+  cancel-previous-runs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - uses: styfle/cancel-workflow-action@0.7.0
+        with:
+          access_token: ${{ github.token }}
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    needs: cancel-previous-runs
+    steps:
+      - uses: actions/checkout@v2
+      #      - name: Setup tmate session
+      #        uses: mxschmitt/action-tmate@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JDK_CURRENT }}
+      - name: Build
+        run: ./gradlew clean build
