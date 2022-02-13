@@ -14,6 +14,16 @@
         </param-value>
     </context-param>
 
+    <context-param>
+        <param-name>ClassLoaderLeakPreventor.threadWaitMs</param-name>
+        <param-value>100</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>ClassLoaderLeakPreventor.shutdownHookWaitMs</param-name>
+        <param-value>200</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>status</servlet-name>
         <servlet-class>org.springframework.security.saml.web.StatusServlet</servlet-class>
@@ -44,6 +54,11 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!--ClassLoaderLeakPreventorListener should be first (outermost) listener-->
+    <listener>
+        <listener-class>se.jiderhamn.classloader.leak.prevention.ClassLoaderLeakPreventorListener</listener-class>
+    </listener>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
