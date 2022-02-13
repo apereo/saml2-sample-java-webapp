@@ -57,7 +57,7 @@
 
     <!--ClassLoaderLeakPreventorListener should be first (outermost) listener-->
     <listener>
-        <listener-class>se.jiderhamn.classloader.leak.prevention.ClassLoaderLeakPreventorListener</listener-class>
+        <listener-class>org.springframework.security.saml.web.ClassLoaderLeakPreventorListener</listener-class>
     </listener>
 
     <listener>
