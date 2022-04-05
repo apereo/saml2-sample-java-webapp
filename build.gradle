@@ -65,18 +65,17 @@ gretty {
     System.properties.each {
         programArgs.add("-D${it.key}=${it.value}")
     }
+
     if (System.getProperty("debug") != null) {
         programArgs.add("-Xdebug")
         programArgs.add("-Xrunjdwp:transport=dt_socket,address=5008,server=y,suspend=n")
     }
-    logger.info("Program arguments: " + programArgs)
-
+    logger.info("Program arguments: {}", programArgs)
     jvmArgs = programArgs
     scanInterval = 5
     servletContainer = 'jetty9.4'
     contextPath = '/sp'
     httpPort = 8076
-
     def path = System.getProperty("sp.sslKeystorePath", "/etc/cas/thekeystore")
     if (path != null && new java.io.File(path).exists()) {
         httpsEnabled = true

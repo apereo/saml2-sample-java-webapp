@@ -183,7 +183,7 @@
     <bean lazy-init="true" id="metadataUrl" class="org.opensaml.util.resource.HttpResource">
         <constructor-arg value="${metadataLocation:}"/>
     </bean>
-    
+
     <!-- IDP Metadata configuration - paths to metadata of IDPs in circle of trust is here -->
     <bean id="metadata" class="org.springframework.security.saml.metadata.CachingMetadataManager">
         <constructor-arg>
