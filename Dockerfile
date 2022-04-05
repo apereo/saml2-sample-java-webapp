@@ -5,6 +5,10 @@ COPY ./src sp-webapp/src/
 COPY ./gradle/ sp-webapp/gradle/
 COPY ./gradlew ./build.gradle ./gradle.properties ./docker-run.sh /sp-webapp/
 
+RUN cd / \
+    && mkdir -p /etc/cas/config/saml \
+    && mkdir -p /etc/cas/saml
+
 RUN mkdir -p ~/.gradle \
     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
     && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \

@@ -53,5 +53,14 @@ if [ -n "${AUTHN_CONTEXT}" ]; then
     ARGS="${ARGS} -DauthnContext="${AUTHN_CONTEXT}""
 fi
 
+if [ -n "${SP_KEYSTORE_PATH}" ]; then
+    ARGS="${ARGS} -Dsp.sslKeystorePath="${SP_KEYSTORE_PATH}""
+fi
+
+if [ -n "${SP_KEYSTORE_PASSWORD}" ]; then
+    ARGS="${ARGS} -Dsp.sslKeystorePassword="${SP_KEYSTORE_PASSWORD}""
+fi
+
+
 echo "Running SAML2 sample application with ${ARGS}"
-./gradlew jettyRunWar "${ARGS}"
+./gradlew --stacktrace ${ARGS}
