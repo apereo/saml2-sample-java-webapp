@@ -15,7 +15,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.gretty:gretty:3.0.7"
+        classpath "org.gretty:gretty:4.0.1"
     }
 }
 
