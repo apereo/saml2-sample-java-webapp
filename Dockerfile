@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:alpine-slim AS war
+FROM eclipse-temurin:11-jdk AS war
 
 RUN mkdir -p sp-webapp
 COPY ./src sp-webapp/src/

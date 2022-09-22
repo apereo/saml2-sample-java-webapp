@@ -174,7 +174,7 @@
         <property name="sslHostnameVerification" value="allowAll"/>
     </bean>
 
-    <bean id="metadataClasspath" class="org.opensaml.util.resource.ClasspathResource">
+    <bean lazy-init="true" id="metadataClasspath" class="org.opensaml.util.resource.ClasspathResource">
         <constructor-arg value="${metadataLocation:/metadata/sp-metadata.xml}"/>
     </bean>
     <bean lazy-init="true" id="metadataFile" class="org.opensaml.util.resource.FilesystemResource">
@@ -209,7 +209,7 @@
 
                 <bean class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
                     <constructor-arg>
-                        <bean class="org.opensaml.saml2.metadata.provider.ResourceBackedMetadataProvider">
+                        <bean id="spMetadataProvider" class="org.opensaml.saml2.metadata.provider.ResourceBackedMetadataProvider">
                             <constructor-arg>
                                 <bean class="java.util.Timer"/>
                             </constructor-arg>
