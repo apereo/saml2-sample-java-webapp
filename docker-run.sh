@@ -63,4 +63,4 @@ fi
 
 
 echo "Running SAML2 sample application with ${ARGS}"
-./gradlew --stacktrace ${ARGS}
+./gradlew jettyRunWar --stacktrace ${ARGS}
