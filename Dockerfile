@@ -3,7 +3,7 @@ FROM eclipse-temurin:11-jdk AS war
 RUN mkdir -p sp-webapp
 COPY ./src sp-webapp/src/
 COPY ./gradle/ sp-webapp/gradle/
-COPY ./gradlew ./build.gradle ./gradle.properties ./docker-run.sh /sp-webapp/
+COPY ./gradlew ./build.gradle ./gradle.properties /sp-webapp/
 
 RUN cd / \
     && mkdir -p /etc/cas/config/saml \
@@ -17,7 +17,9 @@ RUN mkdir -p ~/.gradle \
     && ./gradlew --version;
 
 RUN cd sp-webapp && ./gradlew clean build --parallel --no-daemon;
-    
+
+COPY ./docker-run.sh /sp-webapp/
+
 EXPOSE 9876 8076
 
 ENV PATH $PATH:$JAVA_HOME/bin:.
@@ -25,4 +27,4 @@ ENV PATH $PATH:$JAVA_HOME/bin:.
 WORKDIR sp-webapp
 RUN ls -al && chmod +x *.sh
 
-ENTRYPOINT ["docker-run.sh"]
+ENTRYPOINT ["/bin/bash", "-c", "$PWD/docker-run.sh"]
